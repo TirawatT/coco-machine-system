@@ -54,7 +54,7 @@ export default function ProductionOverviewPage() {
         date,
         output: d.output,
         scrap: d.scrap,
-        yield: Math.round((d.output / d.input) * 10000) / 100,
+        yieldRate: Math.round((d.output / d.input) * 10000) / 100,
       }))
       .sort((a, b) => a.date.localeCompare(b.date))
       .slice(-7);
@@ -67,7 +67,7 @@ export default function ProductionOverviewPage() {
           Production Overview
         </h1>
         <p className="text-muted-foreground">
-          All machines — production output & yield summary
+          All machines — production output & yieldRate summary
         </p>
       </div>
 
@@ -122,7 +122,7 @@ export default function ProductionOverviewPage() {
                   <TableHead className="text-right">Input</TableHead>
                   <TableHead className="text-right">Output</TableHead>
                   <TableHead className="text-right">Scrap</TableHead>
-                  <TableHead className="text-right">Yield</TableHead>
+                  <TableHead className="text-right">yieldRate</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -151,14 +151,14 @@ export default function ProductionOverviewPage() {
                     <TableCell className="text-right">
                       <span
                         className={
-                          log.yield >= 90
+                          log.yieldRate >= 90
                             ? "text-green-600"
-                            : log.yield >= 85
+                            : log.yieldRate >= 85
                               ? "text-yellow-600"
                               : "text-red-600"
                         }
                       >
-                        {log.yield}%
+                        {log.yieldRate}%
                       </span>
                     </TableCell>
                   </TableRow>

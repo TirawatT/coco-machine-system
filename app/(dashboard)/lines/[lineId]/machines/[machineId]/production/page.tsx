@@ -60,7 +60,7 @@ export default function ProductionPage({
         date,
         output: d.output,
         scrap: d.scrap,
-        yield: Math.round((d.output / d.input) * 10000) / 100,
+        yieldRate: Math.round((d.output / d.input) * 10000) / 100,
       }))
       .reverse();
   }, [logs]);
@@ -70,7 +70,7 @@ export default function ProductionPage({
     const recent = logs.slice(0, 14);
     return (
       Math.round(
-        (recent.reduce((s, l) => s + l.yield, 0) / recent.length) * 100,
+        (recent.reduce((s, l) => s + l.yieldRate, 0) / recent.length) * 100,
       ) / 100
     );
   }, [logs]);
@@ -86,7 +86,7 @@ export default function ProductionPage({
         <div>
           <h1 className="text-2xl font-bold tracking-tight">Production</h1>
           <p className="text-muted-foreground">
-            {machine?.name} — Production logs & yield tracking
+            {machine?.name} — Production logs & yieldRate tracking
           </p>
         </div>
       </div>
@@ -95,7 +95,7 @@ export default function ProductionPage({
       <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardContent className="pt-4">
-            <p className="text-sm text-muted-foreground">Avg Yield (7d)</p>
+            <p className="text-sm text-muted-foreground">Avg yieldRate (7d)</p>
             <p className="text-2xl font-bold">{avgYield}%</p>
           </CardContent>
         </Card>
@@ -133,7 +133,7 @@ export default function ProductionPage({
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Yield Trend</CardTitle>
+            <CardTitle className="text-base">yieldRate Trend</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-[250px]">
@@ -152,11 +152,11 @@ export default function ProductionPage({
                   <Tooltip />
                   <Area
                     type="monotone"
-                    dataKey="yield"
+                    dataKey="yieldRate"
                     stroke="hsl(var(--chart-1))"
                     fill="hsl(var(--chart-1))"
                     fillOpacity={0.2}
-                    name="Yield %"
+                    name="yieldRate %"
                   />
                 </AreaChart>
               </ResponsiveContainer>
@@ -217,7 +217,7 @@ export default function ProductionPage({
                   <TableHead className="text-right">Input</TableHead>
                   <TableHead className="text-right">Output</TableHead>
                   <TableHead className="text-right">Scrap</TableHead>
-                  <TableHead className="text-right">Yield</TableHead>
+                  <TableHead className="text-right">yieldRate</TableHead>
                   <TableHead>Operator</TableHead>
                 </TableRow>
               </TableHeader>
@@ -246,14 +246,14 @@ export default function ProductionPage({
                     <TableCell className="text-right">
                       <span
                         className={
-                          log.yield >= 90
+                          log.yieldRate >= 90
                             ? "text-green-600"
-                            : log.yield >= 85
+                            : log.yieldRate >= 85
                               ? "text-yellow-600"
                               : "text-red-600"
                         }
                       >
-                        {log.yield}%
+                        {log.yieldRate}%
                       </span>
                     </TableCell>
                     <TableCell className="text-muted-foreground">

@@ -75,7 +75,7 @@ export interface ProductionLog {
   input: number;
   output: number;
   scrap: number;
-  yield: number; // percentage (output / input * 100)
+  yieldRate: number; // percentage (output / input * 100)
   operatorId: string;
   operatorName?: string;
   createdAt: string;

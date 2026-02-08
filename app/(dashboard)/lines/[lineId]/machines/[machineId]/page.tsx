@@ -36,7 +36,7 @@ const subPages = [
     title: "Production",
     href: "production",
     icon: BarChart3,
-    description: "Input/Output/Scrap/Yield logs",
+    description: "Input/Output/Scrap/yieldRate logs",
   },
   {
     title: "Sensors",
