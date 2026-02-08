@@ -90,13 +90,13 @@ export default function DashboardPage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Average Yield</CardTitle>
+            <CardTitle className="text-sm font-medium">Average yieldRate</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.averageYield}%</div>
             <p className="text-xs text-muted-foreground">
-              Last 7 days production yield
+              Last 7 days production yieldRate
             </p>
           </CardContent>
         </Card>
@@ -125,7 +125,7 @@ export default function DashboardPage() {
         <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle className="text-base">
-              Production Yield — Last 7 Days
+              Production yieldRate — Last 7 Days
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -151,11 +151,11 @@ export default function DashboardPage() {
                   />
                   <Area
                     type="monotone"
-                    dataKey="yield"
+                    dataKey="yieldRate"
                     stroke="hsl(var(--chart-1))"
                     fill="hsl(var(--chart-1))"
                     fillOpacity={0.2}
-                    name="Yield %"
+                    name="yieldRate %"
                   />
                 </AreaChart>
               </ResponsiveContainer>

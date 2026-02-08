@@ -98,7 +98,7 @@ export function getDashboardStats(): DashboardStats {
   const recentProduction = mockProductionLogs.slice(0, 100);
   const avgYield =
     recentProduction.length > 0
-      ? recentProduction.reduce((sum, p) => sum + p.yield, 0) /
+      ? recentProduction.reduce((sum, p) => sum + p.yieldRate, 0) /
         recentProduction.length
       : 0;
 
@@ -154,7 +154,7 @@ export function getAlerts(): Alert[] {
   const machineYields = new Map<string, number[]>();
   for (const p of mockProductionLogs.slice(0, 50)) {
     const yields = machineYields.get(p.machineId) ?? [];
-    yields.push(p.yield);
+    yields.push(p.yieldRate);
     machineYields.set(p.machineId, yields);
   }
   for (const [machineId, yields] of machineYields) {
@@ -181,8 +181,12 @@ export function getAlerts(): Alert[] {
 export function getProductionChartData() {
   const days = 7;
   const now = new Date("2026-02-08");
-  const data: { date: string; output: number; scrap: number; yield: number }[] =
-    [];
+  const data: {
+    date: string;
+    output: number;
+    scrap: number;
+    yieldRate: number;
+  }[] = [];
 
   for (let i = days - 1; i >= 0; i--) {
     const d = new Date(now);
@@ -199,7 +203,7 @@ export function getProductionChartData() {
       date: dateStr,
       output: totalOutput,
       scrap: totalScrap,
-      yield: Math.round(avgYield * 100) / 100,
+      yieldRate: Math.round(avgYield * 100) / 100,
     });
   }
 

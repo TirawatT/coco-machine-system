@@ -1,7 +1,9 @@
 import { ProductionLog, ShiftType } from "@/types";
 import { format, subDays } from "date-fns";
+import { createSeededRandom } from "./seed-random";
 
 function generateProductionLogs(): ProductionLog[] {
+  const rand = createSeededRandom(12345);
   const logs: ProductionLog[] = [];
   const machineIds = [
     "machine-001",
@@ -26,13 +28,12 @@ function generateProductionLogs(): ProductionLog[] {
 
     for (const machineId of machineIds) {
       for (const shift of [ShiftType.DAY, ShiftType.NIGHT]) {
-        const input = Math.floor(Math.random() * 500) + 800; // 800-1300
-        const yieldRate = 0.85 + Math.random() * 0.13; // 85%-98%
+        const input = Math.floor(rand() * 500) + 800; // 800-1300
+        const yieldRate = 0.85 + rand() * 0.13; // 85%-98%
         const output = Math.floor(input * yieldRate);
         const scrap = input - output;
 
-        const operator =
-          operators[Math.floor(Math.random() * operators.length)];
+        const operator = operators[Math.floor(rand() * operators.length)];
 
         logs.push({
           id: `prod-${machineId}-${shiftDate}-${shift}`,
@@ -42,7 +43,7 @@ function generateProductionLogs(): ProductionLog[] {
           input,
           output,
           scrap,
-          yield: Math.round((output / input) * 10000) / 100,
+          yieldRate: Math.round((output / input) * 10000) / 100,
           operatorId: operator.id,
           operatorName: operator.name,
           createdAt: date.toISOString(),
