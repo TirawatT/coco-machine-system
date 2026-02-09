@@ -124,3 +124,137 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ===== Executive Dashboard Utilities ===== */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes count-up {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 8px 0 rgba(34, 197, 94, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(34, 197, 94, 0.5);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.5s ease-out forwards;
+}
+
+.animate-count-up {
+  animation: count-up 0.4s ease-out forwards;
+}
+
+.stagger-1 {
+  animation-delay: 0.05s;
+}
+.stagger-2 {
+  animation-delay: 0.1s;
+}
+.stagger-3 {
+  animation-delay: 0.15s;
+}
+.stagger-4 {
+  animation-delay: 0.2s;
+}
+.stagger-5 {
+  animation-delay: 0.25s;
+}
+.stagger-6 {
+  animation-delay: 0.3s;
+}
+
+/* Gradient KPI Cards */
+.kpi-gradient-blue {
+  background: linear-gradient(
+    135deg,
+    oklch(0.35 0.15 250) 0%,
+    oklch(0.25 0.12 260) 100%
+  );
+}
+.kpi-gradient-emerald {
+  background: linear-gradient(
+    135deg,
+    oklch(0.35 0.15 160) 0%,
+    oklch(0.25 0.12 170) 100%
+  );
+}
+.kpi-gradient-violet {
+  background: linear-gradient(
+    135deg,
+    oklch(0.35 0.15 300) 0%,
+    oklch(0.25 0.12 310) 100%
+  );
+}
+.kpi-gradient-amber {
+  background: linear-gradient(
+    135deg,
+    oklch(0.38 0.14 80) 0%,
+    oklch(0.28 0.12 85) 100%
+  );
+}
+.kpi-gradient-rose {
+  background: linear-gradient(
+    135deg,
+    oklch(0.35 0.16 15) 0%,
+    oklch(0.25 0.13 20) 100%
+  );
+}
+.kpi-gradient-cyan {
+  background: linear-gradient(
+    135deg,
+    oklch(0.35 0.12 200) 0%,
+    oklch(0.25 0.1 210) 100%
+  );
+}
+
+/* Glass card overlay */
+.glass-card {
+  backdrop-filter: blur(12px);
+  border: 1px solid oklch(1 0 0 / 8%);
+}
+
+/* Status glow effects */
+.glow-green {
+  box-shadow: 0 0 12px 2px rgba(34, 197, 94, 0.25);
+}
+.glow-yellow {
+  box-shadow: 0 0 12px 2px rgba(234, 179, 8, 0.25);
+}
+.glow-red {
+  box-shadow: 0 0 12px 2px rgba(239, 68, 68, 0.25);
+}
+.glow-orange {
+  box-shadow: 0 0 12px 2px rgba(249, 115, 22, 0.25);
+}
