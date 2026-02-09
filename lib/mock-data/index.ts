@@ -209,3 +209,111 @@ export function getProductionChartData() {
 
   return data;
 }
+
+// ===== Executive Dashboard Helpers =====
+
+export function getOEE() {
+  const machines = mockMachines;
+  const running = machines.filter(
+    (m) => m.status === MachineStatus.RUNNING,
+  ).length;
+  const total = machines.length;
+
+  // Availability: running / total machines
+  const availability = total > 0 ? running / total : 0;
+
+  // Performance: actual output vs planned (assume planned = input)
+  const recentProduction = mockProductionLogs.slice(0, 50);
+  const totalOutput = recentProduction.reduce((s, p) => s + p.output, 0);
+  const totalInput = recentProduction.reduce((s, p) => s + p.input, 0);
+  const performance = totalInput > 0 ? totalOutput / totalInput : 0;
+
+  // Quality: (output - scrap) / output
+  const totalScrap = recentProduction.reduce((s, p) => s + p.scrap, 0);
+  const quality =
+    totalOutput > 0 ? (totalOutput - totalScrap) / totalOutput : 0;
+
+  const oee = availability * performance * quality * 100;
+
+  return {
+    oee: Math.round(oee * 10) / 10,
+    availability: Math.round(availability * 1000) / 10,
+    performance: Math.round(performance * 1000) / 10,
+    quality: Math.round(quality * 1000) / 10,
+  };
+}
+
+export function getUptimePercentage() {
+  const machines = mockMachines;
+  const running = machines.filter(
+    (m) => m.status === MachineStatus.RUNNING,
+  ).length;
+  const idle = machines.filter((m) => m.status === MachineStatus.IDLE).length;
+  // Uptime = running + idle (not broken / not in maintenance)
+  const uptime = running + idle;
+  return machines.length > 0
+    ? Math.round((uptime / machines.length) * 1000) / 10
+    : 0;
+}
+
+export function getScrapRate() {
+  const recentProduction = mockProductionLogs.slice(0, 50);
+  const totalOutput = recentProduction.reduce((s, p) => s + p.output, 0);
+  const totalScrap = recentProduction.reduce((s, p) => s + p.scrap, 0);
+  return totalOutput > 0
+    ? Math.round((totalScrap / totalOutput) * 1000) / 10
+    : 0;
+}
+
+export function getTodayProductionSummary() {
+  const today = "2026-02-08"; // mock "today"
+  const todayLogs = mockProductionLogs.filter((p) => p.shiftDate === today);
+  return {
+    totalInput: todayLogs.reduce((s, p) => s + p.input, 0),
+    totalOutput: todayLogs.reduce((s, p) => s + p.output, 0),
+    totalScrap: todayLogs.reduce((s, p) => s + p.scrap, 0),
+    logCount: todayLogs.length,
+  };
+}
+
+export function getLinePerformance() {
+  return mockLines.map((line) => {
+    const lineMachines = mockMachines.filter((m) => m.lineId === line.id);
+    const running = lineMachines.filter(
+      (m) => m.status === MachineStatus.RUNNING,
+    ).length;
+    const lineProduction = mockProductionLogs.filter((p) =>
+      lineMachines.some((m) => m.id === p.machineId),
+    );
+    const recentProd = lineProduction.slice(0, 30);
+    const totalOutput = recentProd.reduce((s, p) => s + p.output, 0);
+    const totalInput = recentProd.reduce((s, p) => s + p.input, 0);
+    const avgYield = totalInput > 0 ? (totalOutput / totalInput) * 100 : 0;
+
+    return {
+      lineId: line.id,
+      lineName: line.name,
+      location: line.location,
+      totalMachines: lineMachines.length,
+      runningMachines: running,
+      totalOutput,
+      averageYield: Math.round(avgYield * 10) / 10,
+      uptimePercent:
+        lineMachines.length > 0
+          ? Math.round((running / lineMachines.length) * 1000) / 10
+          : 0,
+    };
+  });
+}
+
+export function getMachineStatusBreakdown() {
+  const machines = mockMachines;
+  return {
+    running: machines.filter((m) => m.status === MachineStatus.RUNNING).length,
+    idle: machines.filter((m) => m.status === MachineStatus.IDLE).length,
+    stopped: machines.filter((m) => m.status === MachineStatus.STOPPED).length,
+    maintenance: machines.filter((m) => m.status === MachineStatus.MAINTENANCE)
+      .length,
+    total: machines.length,
+  };
+}
