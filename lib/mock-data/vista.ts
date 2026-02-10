@@ -1,14 +1,26 @@
 import { VistaTour } from "@/types";
 
 export const mockVistaTours: VistaTour[] = [
+  // {
+  //   id: "vista-001",
+  //   machineId: null,
+  //   lineId: "line-001",
+  //   lineName: "Assembly Line A",
+  //   tourUrl: "https://my.matterport.com/show/?m=7ffnfBNamei",
+  //   thumbnailUrl:
+  //     "https://my.matterport.com/api/v1/player/models/7ffnfBNamei/thumb?width=800",
+  //   name: "Assembly Line A — Full Tour",
+  //   description:
+  //     "360° virtual tour of Assembly Line A — warehouse, production area and workstations walkthrough",
+  //   createdAt: "2025-06-01T00:00:00Z",
+  // },
   {
     id: "vista-001",
     machineId: null,
     lineId: "line-001",
     lineName: "Assembly Line A",
-    tourUrl: "https://my.matterport.com/show/?m=7ffnfBNamei",
-    thumbnailUrl:
-      "https://my.matterport.com/api/v1/player/models/7ffnfBNamei/thumb?width=800",
+    tourUrl: "https://www.one2view3d.com/project3d/MINVANA/index.htm",
+    thumbnailUrl: "https://www.one2view3d.com/project3d/MINVANA/index.htm",
     name: "Assembly Line A — Full Tour",
     description:
       "360° virtual tour of Assembly Line A — warehouse, production area and workstations walkthrough",
